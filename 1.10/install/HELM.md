@@ -26,11 +26,12 @@ The RHDH Helm chart has the following implementation for the Lightspeed Secret f
 
 ```yaml
 global:
-  secret:
-    create: true
-    name: ""
-    optional: false
-    sourceFile: secret.yaml
+  lightspeed:
+    secret:
+      create: true
+      name: ""
+      optional: false
+      sourceFile: secret.yaml
 ```
 
 With the above configuration (default), the Helm install will create a Kubernetes Secret with the following keys:
@@ -67,9 +68,10 @@ On subsequent `Helm upgrade` cycles, this Secret will have its contents wiped. T
 For example if you created a Secret named "my-secret":
 ```yaml
 global:
-  secret:
-    create: false
-    name: "my-secret"
+  lightspeed:
+    secret:
+      create: false
+      name: "my-secret"
 ```
 
 ## Managing Config Maps for Lightspeed With Helm
@@ -88,14 +90,15 @@ You should:
 Example with `lightspeed-stack.yaml`:
 ```yaml
 global:
-  configMaps:
-    - name: stack
-      create: false
-      nameOverride: "my-stack"
-      mountPath: /app-root/lightspeed-stack.yaml
-      subPath: lightspeed-stack.yaml
-      sourceFile: lightspeed-stack.yaml
-      optional: false
+  lightspeed:
+    configMaps:
+      - name: stack
+        create: false
+        nameOverride: "my-stack"
+        mountPath: /app-root/lightspeed-stack.yaml
+        subPath: lightspeed-stack.yaml
+        sourceFile: lightspeed-stack.yaml
+        optional: false
 ```
 
 Similar overrides are possible for the `config.yaml` and `rhdh-profile.py` files: https://github.com/redhat-developer/rhdh-chart/blob/main/charts/backstage/values.yaml#L119C1-L140C24
